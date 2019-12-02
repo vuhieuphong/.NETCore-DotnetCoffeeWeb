@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CoffeeStore
 {
+    //published to github
     public class Program
     {
         public static void Main(string[] args)
