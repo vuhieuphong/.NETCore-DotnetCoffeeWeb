@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CoffeeStore.Models.Item>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p class="pull-left">
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Item" asp-action="Index" method="get">
+    <div class="form-inline pull-right">
+        <label>Search:</label>
+        <br />Item Category Name:
+        <input type="text" name="searchString1" class="form-control mr-1">
+        &nbsp;Item Name:
+        <input type="text" name="searchString2" class="form-control mr-1">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+<br /><br /><br /><br /><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.itemcategoryID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemCategories.itemcategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.itemName)
+            </td>
+            <td>
+                <div style="width: 10rem;">
+                    <img class="img-responsive img-thumbnail rounded float-left"
+                         src="data:image/jpeg;base64,@(item.itemImage == null ? "" : Convert.ToBase64String(item.itemImage)) " />
+                </div>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.itemID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.itemID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.itemID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CoffeeStore.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p class="pull-left">
+    <a asp-action="Create">Create New</a>
+</p>
+<form asp-controller="Order" asp-action="Index" method="get">
+    <div class="form-inline pull-right">
+        <label>Search:</label>
+        <br />Customer Name:
+        <input type="text" name="searchString" class="form-control mr-1">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+<br /><br /><br /><br /><br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.customerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customers.customerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.orderTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.orderID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.orderID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.orderID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
