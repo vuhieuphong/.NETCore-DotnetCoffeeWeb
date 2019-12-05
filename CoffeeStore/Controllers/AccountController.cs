@@ -47,7 +47,7 @@ namespace CoffeeStore.Controllers
             return View(loginModel);
         }
 
-        public async Task<RedirectResult> Logout(string returnUrl = "/")
+        public async Task<RedirectResult> Logout(string returnUrl = "/Account/Login")
         {
             await signInManager.SignOutAsync();
             return Redirect(returnUrl);
