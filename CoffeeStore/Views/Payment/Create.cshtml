@@ -11,12 +11,15 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <div class="form-group">
+                <input asp-for="paymentID" class="form-control" type="hidden" />
+                <span asp-validation-for="paymentID" class="text-danger"></span>
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="customerID" class="control-label"></label>
                 <select asp-for="customerID" class="form-control"
-                 asp-items="@(new SelectList(ViewBag.Customers, "customerID","customerName"))">
-                </select>
+                        asp-items="@(new SelectList(ViewBag.Customers, "customerID","customerName"))"></select>
                 <span asp-validation-for="customerID" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -34,7 +37,7 @@
                 <span asp-validation-for="paymentType" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="@(Model.paymentID==0 ? "Create":"Edit")" class="btn btn-default" />
             </div>
         </form>
     </div>

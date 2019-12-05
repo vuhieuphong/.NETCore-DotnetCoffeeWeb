@@ -20,6 +20,7 @@ namespace CoffeeStore.Models
         public int customerID { get; set; }
         [DisplayName("Payment Amount")]
         [Required(ErrorMessage = "Payment Amount is Required.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive amount")]
         public double paymentAmount { get; set; }
         [DisplayName("Payment Type")]
         public PaymentType paymentType { get; set; }

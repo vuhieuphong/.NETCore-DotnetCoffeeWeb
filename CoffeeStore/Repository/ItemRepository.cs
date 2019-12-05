@@ -18,7 +18,11 @@ namespace CoffeeStore.Repository
         public IEnumerable<Item> GetItems => db.Items.Include(e=>e.ItemCategories);
         public Item GetItem(int? Id)
         {
-            Item dbEntity = db.Items.Find(Id);
+            Item dbEntity = db.Items
+                .Include(i=>i.ItemCategories)
+                .Include(i=>i.OrderDetails)
+                .ThenInclude(i=>i.Orders)
+                .SingleOrDefault(i=>i.itemID==Id);
             return dbEntity;
         }
         public void Add(Item _Item)

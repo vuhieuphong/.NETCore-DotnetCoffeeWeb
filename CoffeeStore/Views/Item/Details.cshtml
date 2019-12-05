@@ -1,0 +1,87 @@
+﻿@model CoffeeStore.Models.Item
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.itemName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.itemName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.itemImage)
+        </dt>
+        <dd>
+            <div style="width: 15rem;">
+                <img class="img-responsive img-thumbnail rounded float-left" style="width: 15rem;height:10rem"
+                     src="data:image/jpeg;base64,@(Model.itemImage == null ? "" : Convert.ToBase64String(Model.itemImage)) " />
+            </div>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.itemcategoryID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItemCategories.itemcategoryName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDetails)
+        </dt>
+        <dd>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                           Order Time
+                        </th>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                           Price
+                        </th>
+                        <th>
+                           Quantity
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Orders.orderTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Items.itemName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.quantity)
+                            </td>
+                            <td>
+                                <a asp-controller="OrderDetail" asp-action="Edit" asp-route-id="@item.orderDetailID">Edit</a> |
+                                <a asp-controller="OrderDetail" asp-action="Details" asp-route-id="@item.orderDetailID">Details</a> |
+                                <a asp-controller="OrderDetail" asp-action="Delete" asp-route-id="@item.orderDetailID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.itemID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

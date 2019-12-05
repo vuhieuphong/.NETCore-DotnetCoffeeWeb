@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -19,5 +20,7 @@ namespace CoffeeStore.Models
         [DisplayName("Item Image")]
         public byte[] itemImage { get; set; }
         public ItemCategory ItemCategories { get; set; }
+        [DisplayName("Order Details")]
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

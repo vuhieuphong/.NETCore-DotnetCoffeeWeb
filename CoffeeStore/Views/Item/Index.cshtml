@@ -13,9 +13,9 @@
     <div class="form-inline pull-right">
         <label>Search:</label>
         <br />Item Category Name:
-        <input type="text" name="searchString1" class="form-control mr-1">
+        <input type="text" name="searchString1" value="@ViewData["currentFilter1"]" class="form-control mr-1">
         &nbsp;Item Name:
-        <input type="text" name="searchString2" class="form-control mr-1">
+        <input type="text" name="searchString2" value="@ViewData["currentFilter2"]" class="form-control mr-1">
         <button type="submit" class="btn btn-primary">Filter</button>
     </div>
 </form>
@@ -24,10 +24,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.itemcategoryID)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CateNameSortParm"]" 
+                asp-route-searchString1="@ViewData["CurrentFilter1"]" 
+                asp-route-searchString2="@ViewData["CurrentFilter2"]">
+                @Html.DisplayNameFor(model => model.itemcategoryID)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.itemName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" 
+                asp-route-searchString1="@ViewData["CurrentFilter1"]" 
+                asp-route-searchString2="@ViewData["CurrentFilter2"]">
+                @Html.DisplayNameFor(model => model.itemName)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.itemImage)
@@ -47,7 +53,7 @@
             </td>
             <td>
                 <div style="width: 10rem;">
-                    <img class="img-responsive img-thumbnail rounded float-left"
+                    <img class="img-responsive img-thumbnail rounded float-left" style="width: 10rem;height:6.67rem"
                          src="data:image/jpeg;base64,@(item.itemImage == null ? "" : Convert.ToBase64String(item.itemImage)) " />
                 </div>
             </td>

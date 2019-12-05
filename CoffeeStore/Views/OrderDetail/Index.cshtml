@@ -12,10 +12,9 @@
 <form asp-controller="OrderDetail" asp-action="Index" method="get">
     <div class="form-inline pull-right">
         <label>Search:</label>
-        <br />Customer Name:
-        <input type="text" name="searchString1" class="form-control mr-1">
+        <br />
         &nbsp;Item Name:
-        <input type="text" name="searchString2" class="form-control mr-1">
+        <input type="text" name="searchString" value="@ViewData["currentFilter"]" class="form-control mr-1">
         <button type="submit" class="btn btn-primary">Filter</button>
     </div>
 </form>
@@ -24,16 +23,24 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.orderID)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]"
+                asp-route-searchString="@ViewData["CurrentFilter"]">
+                @Html.DisplayNameFor(model => model.orderID)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.itemID)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"
+                asp-route-searchString="@ViewData["CurrentFilter"]">
+                @Html.DisplayNameFor(model => model.itemID)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.price)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]"
+                asp-route-searchString="@ViewData["CurrentFilter"]">
+                @Html.DisplayNameFor(model => model.price)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.quantity)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]"
+                asp-route-searchString="@ViewData["CurrentFilter"]">
+                @Html.DisplayNameFor(model => model.quantity)</a>
             </th>
             <th></th>
         </tr>
@@ -43,7 +50,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Orders.Customers.customerName)
+                    @Html.DisplayFor(modelItem => item.Orders.orderTime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Items.itemName)

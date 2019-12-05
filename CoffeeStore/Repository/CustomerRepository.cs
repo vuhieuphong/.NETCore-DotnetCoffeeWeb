@@ -1,5 +1,6 @@
 ﻿using CoffeeStore.Models;
 using CoffeeStore.Services;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,24 @@ namespace CoffeeStore.Repository
         public IEnumerable<Customer> GetCustomers => db.Customers;
         public Customer GetCustomer(int? Id)
         {
-            Customer dbEntity = db.Customers.Find(Id);
+            Customer dbEntity = db.Customers.Include(c=>c.Payments)
+                                            .Include(c=>c.Orders)
+                                            .SingleOrDefault(c=>c.customerID==Id);
             return dbEntity;
         }
         public void Add(Customer _Customer)
         {
-            db.Customers.Add(_Customer);
-            db.SaveChanges();
+            if(_Customer.customerID==0)
+            {
+                db.Customers.Add(_Customer);
+                db.SaveChanges();
+            }
+            else
+            {
+                db.Customers.Update(_Customer);
+                db.SaveChanges();
+            }
+          
         }
         public void Remove(int? Id)
         {

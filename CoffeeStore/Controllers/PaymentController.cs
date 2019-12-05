@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoffeeStore.Models;
 using CoffeeStore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoffeeStore.Controllers
 {
+    [Authorize]
     public class PaymentController : Controller
     {
         private readonly IPayment _Payment;
@@ -18,21 +20,41 @@ namespace CoffeeStore.Controllers
             _Customer = _ICustomer;
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index(string sortOrder,string searchString)
         {
+            ViewData["NameSortParm"] = sortOrder != "name_sort" ? "name_sort" : "";
+            ViewData["AmountSortParm"] = sortOrder != "amount_sort" ? "amount_sort" : "";
+            ViewData["currentFilter"] = searchString;
+
             var payments = _Payment.GetPayments;
             if (!string.IsNullOrEmpty(searchString))
             {
                 payments = payments.Where(s => s.Customers.customerName.ToUpper().Contains(searchString.ToUpper()));
             }
+
+            switch (sortOrder)
+            {
+                case "name_sort":
+                    payments = payments.OrderBy(s => s.Customers.customerName);
+                    break;
+                case "amount_sort":
+                    payments = payments.OrderBy(s => s.paymentAmount);
+                    break;
+                default:
+                    payments = payments.OrderBy(s => s.paymentID);
+                    break;
+            }
+
             return View(payments.ToList());
         }
 
         [HttpGet]
         public IActionResult Create()
         {
+            Payment model = new Payment();
+            model.paymentID = 0;
             ViewBag.Customers = _Customer.GetCustomers;
-            return View();
+            return View(model);
         }
         [HttpPost]
         public IActionResult Create(Payment model)
@@ -63,6 +85,19 @@ namespace CoffeeStore.Controllers
         {
             _Payment.Remove(Id);
             return RedirectToAction("Index");
+        }
+        
+        public IActionResult Edit(int? Id)
+        {
+            var model = _Payment.GetPayment(Id);
+            ViewBag.Customers = _Customer.GetCustomers;
+            return View("Create",model);
+        }
+        
+        public IActionResult Details(int? Id)
+        {
+            var model = _Payment.GetPayment(Id);
+            return View(model);
         }
     }
 }

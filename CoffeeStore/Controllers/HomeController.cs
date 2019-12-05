@@ -5,14 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CoffeeStore.Models;
+using CoffeeStore.Services;
 
 namespace CoffeeStore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IItem _Item;
+        public int pageSize = 3;
+
+        public HomeController(IItem _IItem)
         {
-            return View();
+            _Item = _IItem;
+        }
+        public IActionResult Index(string category, int? pageNumber)
+        {
+            ViewBag.SelectedCategory = category;
+            var model = _Item.GetItems
+                .Where(p => category == null || p.ItemCategories.itemcategoryName == category);
+            return View(PaginatedList<Item>.Create(model, pageNumber ?? 1, pageSize));
         }
 
         public IActionResult About()

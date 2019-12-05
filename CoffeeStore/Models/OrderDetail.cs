@@ -11,14 +11,16 @@ namespace CoffeeStore.Models
     {
         [Key]
         public int orderDetailID { get; set; }
-        [DisplayName("Customer Name")]
+        [DisplayName("Order Time")]
         public int orderID { get; set; }
         [DisplayName("Item Name")]
         public int itemID { get; set; }
         [DisplayName("Price")]
         [Required(ErrorMessage ="Price is Required")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Please enter a positive price")]
         public double price { get; set; }
         [DisplayName("Quantity")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive quantity")]
         [Required(ErrorMessage ="Quantity is Required")]
         public int quantity { get; set; }
         public Order Orders { get; set; }

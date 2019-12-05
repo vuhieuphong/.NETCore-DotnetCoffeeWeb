@@ -13,7 +13,7 @@
     <div class="form-inline pull-right">
         <label>Search:</label>
         <br />Item Category Name:
-        <input type="text" name="searchString" class="form-control mr-1">
+        <input type="text" name="searchString" value="@ViewData["currentFilter"]" class="form-control mr-1">
         <button type="submit" class="btn btn-primary">Filter</button>
     </div>
 </form>
@@ -22,7 +22,9 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.itemcategoryName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"
+                asp-route-searchString="@ViewData["CurrentFilter"]">
+                @Html.DisplayNameFor(model => model.itemcategoryName)</a>
             </th>
             <th></th>
         </tr>

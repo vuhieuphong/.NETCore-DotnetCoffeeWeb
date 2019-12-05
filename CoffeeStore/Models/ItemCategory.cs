@@ -14,5 +14,6 @@ namespace CoffeeStore.Models
         [DisplayName("Item Category Name")]
         [Required(ErrorMessage ="Item Category Name is Required")]
         public string itemcategoryName { get; set; }
+        public ICollection<Item> Items { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace CoffeeStore.Models
         [Required(ErrorMessage ="Order Time is Required")]
         public DateTime orderTime { get; set; }
         public Customer Customers { get; set; }
+        [DisplayName("Order Details")]
+        public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

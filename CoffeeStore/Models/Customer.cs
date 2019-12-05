@@ -23,5 +23,7 @@ namespace CoffeeStore.Models
         [DisplayName("Email")]
         [EmailAddress]
         public string email { get; set; }
+        public ICollection<Order> Orders { get; set; }
+        public ICollection<Payment> Payments { get; set; }
     }
 }

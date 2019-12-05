@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoffeeStore.Models;
 using CoffeeStore.Repository;
 using CoffeeStore.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +28,18 @@ namespace CoffeeStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DB_Context>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ConnectionStr")));
+            //services.AddDbContext<DB_Context>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStr")));
+
+            services.AddDbContext<DB_Context>(options => 
+            options.UseSqlServer(Configuration["Data:CoffeeStore:ConnectionString"]));
+
+            services.AddDbContext<AppIdentityDbContext>(options => 
+            options.UseSqlServer(Configuration["Data:CoffeeStoreIdentity:ConnectionString"]));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -63,13 +74,15 @@ namespace CoffeeStore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
+            IdentitySeedData.EnsurePopulated(app);
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            });       
         }
     }
 }

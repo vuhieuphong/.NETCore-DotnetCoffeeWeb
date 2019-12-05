@@ -1,0 +1,42 @@
+﻿@model CoffeeStore.Models.OrderDetail
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OrderDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Orders.orderTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Orders.orderTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Items.itemName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Items.itemName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.orderDetailID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

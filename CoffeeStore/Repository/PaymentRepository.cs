@@ -19,13 +19,22 @@ namespace CoffeeStore.Repository
 
         public void Add(Payment _Payment)
         {
-            db.Payments.Add(_Payment);
-            db.SaveChanges();
+            if(_Payment.paymentID==0)
+            {
+                db.Payments.Add(_Payment);
+                db.SaveChanges();
+            }
+            else
+            {
+                db.Payments.Update(_Payment);
+                db.SaveChanges();
+            }
+            
         }
 
         public Payment GetPayment(int? Id)
         {
-            Payment dbEntity=db.Payments.Find(Id);
+            Payment dbEntity=db.Payments.Include(p=>p.Customers).SingleOrDefault(p=>p.paymentID==Id);
             return dbEntity;
         }
 

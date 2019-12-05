@@ -1,0 +1,69 @@
+﻿@model CoffeeStore.Models.ItemCategory
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ItemCategory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.itemcategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.itemcategoryName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Items)
+        </dt>
+        <dd>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Item Category Name
+                        </th>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+                            Item Image
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ItemCategories.itemcategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.itemName)
+                            </td>
+                            <td>
+                                <div style="width: 10rem;">
+                                    <img class="img-responsive img-thumbnail rounded float-left" style="width: 10rem;height:6.67rem"
+                                         src="data:image/jpeg;base64,@(item.itemImage == null ? "" : Convert.ToBase64String(item.itemImage)) " />
+                                </div>
+                            </td>
+                            <td>
+                                <a asp-controller="Item" asp-action="Edit" asp-route-id="@item.itemID">Edit</a> |
+                                <a asp-controller="Item" asp-action="Details" asp-route-id="@item.itemID">Details</a> |
+                                <a asp-controller="Item" asp-action="Delete" asp-route-id="@item.itemID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.itemcategoryID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

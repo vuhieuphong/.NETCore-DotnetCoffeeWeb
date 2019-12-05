@@ -9,13 +9,6 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-                integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-                crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"
-                integrity="sha256-g1QKGxqsp+x5JkuN/JjHl96je2wztgS5Wo4h4c7gm9M="
-                crossorigin="anonymous"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -23,12 +16,6 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <style>
-        .input-validation-error {
-            border-color: red;
-            background-color: #fee;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -44,21 +31,24 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Customer" asp-action="Index">Customers</a></li>
-                    <li><a asp-area="" asp-controller="Payment" asp-action="Index">Payments</a></li>
-                    <li><a asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
-                    <li><a asp-area="" asp-controller="OrderDetail" asp-action="Index">Order Details</a></li>
-                    <li><a asp-area="" asp-controller="Item" asp-action="Index">Items</a></li>
-                    <li><a asp-area="" asp-controller="ItemCategory" asp-action="Index">Item Categories</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Logout">Log Out</a>
-                    </li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="jumbotron text-center" style="
+        height:280px;
+        background:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(https://visitsouthampton.ca/images2/DB/98851291600X6407596588-IMG_4899.jpg);
+        background-size: cover;
+        color: #fff;
+        font-family: Montserrat, sans-serif;">
+        <h1>DOTNET COFFEE</h1>
+        <p>Phong - Mohammad</p>
+    </div>
     <partial name="_CookieConsentPartial" />
     <div class="container body-content">
-        @RenderBody()       
+        @RenderBody()
     </div>
 
     <environment include="Development">

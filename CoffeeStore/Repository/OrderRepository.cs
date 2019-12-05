@@ -18,13 +18,24 @@ namespace CoffeeStore.Repository
         public IEnumerable<Order> GetOrders => db.Orders.Include(e=>e.Customers);
         public Order GetOrder(int? Id)
         {
-            Order dbEntity = db.Orders.Find(Id);
+            Order dbEntity = db.Orders.Include(o=>o.Customers)
+                                      .Include(o=>o.OrderDetails)
+                                      .ThenInclude(o=>o.Items)
+                                      .SingleOrDefault(o=>o.orderID==Id);
             return dbEntity;
         }
         public void Add(Order _Order)
         {
-            db.Orders.Add(_Order);
-            db.SaveChanges();
+            if(_Order.orderID==0)
+            {
+                db.Orders.Add(_Order);
+                db.SaveChanges();
+            }
+            else
+            {
+                db.Orders.Update(_Order);
+                db.SaveChanges();
+            }           
         }
         public void Remove(int? Id)
         {

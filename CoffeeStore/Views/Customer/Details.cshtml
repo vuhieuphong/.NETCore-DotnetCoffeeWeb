@@ -1,0 +1,122 @@
+﻿@model CoffeeStore.Models.Customer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.customerName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.customerName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.telephone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.telephone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Orders)
+        </dt>
+        <dd>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                           Customer Name
+                        </th>
+                        <th>
+                            Order Time
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customers.customerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.orderTime)
+                            </td>
+                            <td>
+                                <a asp-controller="Order" asp-action="Edit" asp-route-id="@item.orderID">Edit</a> |
+                                <a asp-controller="Order" asp-action="Details" asp-route-id="@item.orderID">Details</a> |
+                                <a asp-controller="Order" asp-action="Delete" asp-route-id="@item.orderID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Payments)
+        </dt>
+        <dd>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Customer Name
+                        </th>
+                        <th>
+                            Payment Amount
+                        </th>
+                        <th>
+                            Payment Type
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Payments)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Customers.customerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.paymentAmount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.paymentType)
+                            </td>
+                            <td>
+                                <a asp-controller="Payment" asp-action="Edit" asp-route-id="@item.paymentID">Edit</a> |
+                                <a asp-controller="Payment" asp-action="Details" asp-route-id="@item.paymentID">Details</a> |
+                                <a asp-controller="Payment" asp-action="Delete" asp-route-id="@item.paymentID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.customerID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
