@@ -26,6 +26,7 @@ namespace CoffeeStore.Controllers
         {
             ViewData["NameSortParm"] = sortOrder != "name_sort" ? "name_sort" : "";
             ViewData["CateNameSortParm"] = sortOrder != "cateName_sort" ? "cateName_sort" : "";
+            ViewData["PriceSortParm"] = sortOrder != "price_sort" ? "price_sort" : "";
             ViewData["currentFilter1"] = searchString1;
             ViewData["currentFilter2"] = searchString2;
             var items = _Item.GetItems;
@@ -48,6 +49,9 @@ namespace CoffeeStore.Controllers
                 case "cateName_sort":
                     items = items.OrderBy(s => s.ItemCategories.itemcategoryName);
                     break;
+                case "price_sort":
+                    items = items.OrderBy(s => s.price);
+                    break;
                 default:
                     items = items.OrderBy(s => s.itemID);
                     break;
@@ -66,7 +70,7 @@ namespace CoffeeStore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("itemID,itemcategoryID,itemName")] Item model, IFormFile imageFile)
+        public IActionResult Create([Bind("itemID,itemcategoryID,itemName,price")] Item model, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {

@@ -1,0 +1,24 @@
+﻿@model Item
+<tr>
+    <td>
+        <div>
+            <img style="width:15rem;height: 10rem" class="img-responsive img-thumbnail rounded float-left"
+                 src="data:image/jpeg;base64,@(Model.itemImage == null ? "" : Convert.ToBase64String(Model.itemImage)) " />
+        </div>
+    </td>
+    <td style="font-size:20px ;font-family: Montserrat, sans-serif;vertical-align:middle;text-align:center">
+        @Html.DisplayFor(modelItem => Model.itemName)
+    </td>
+    <td style="vertical-align:middle;text-align:center">
+        <form id="@Model.itemID" asp-action="AddToCart" asp-controller="Cart" method="post" style="display:inline-block;">         
+        <input type="hidden" asp-for="itemID" />        
+        <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />        
+        <div class="col-xs-5 pull-right">
+            <input type="number" name="quantity" min="1" value="1" class="form-control"/>
+            <button type="submit" class="btn btn-success btn-sm pull-right" style="float:right;font-family: Montserrat, sans-serif;margin-top:8px">
+                Add To Cart
+            </button>
+        </div>                
+        </form>
+    </td>
+</tr>

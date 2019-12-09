@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -11,13 +12,21 @@ namespace CoffeeStore.Models
     {
         [Key]
         public int orderID { get; set; }
-        [DisplayName("Customer Name")]
-        public int customerID { get; set; }
+        [Required(ErrorMessage = "Name is Required")]
+        [DisplayName("Name")]
+        public string name { get; set; }
+        [DisplayName("Email")]
+        [Required(ErrorMessage = "Email is Required")]
+        [EmailAddress]
+        public string email { get; set; }
+        [DisplayName("Phone")]
+        [Required(ErrorMessage = "Phone Number is Required")]
+        public int phone { get; set; }
         [DisplayName("Order Time")]
         [Required(ErrorMessage ="Order Time is Required")]
         public DateTime orderTime { get; set; }
-        public Customer Customers { get; set; }
         [DisplayName("Order Details")]
+        [BindNever]
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>@(Model.itemID == 0 ? "Create" : "Edit")</h2>
 
 <h4>Item</h4>
 <hr />
@@ -27,7 +27,11 @@
                 <input asp-for="itemName" class="form-control" />
                 <span asp-validation-for="itemName" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="price" class="control-label"></label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="itemImage" class="control-label"></label>
                 @if (Model.itemID != 0)
@@ -38,7 +42,7 @@
                     </div>
                 }
                 <input asp-for="itemImage" class="form-control" type="hidden" />
-                <input name="imageFile" class="form-control" type="file"/>
+                <input name="imageFile" class="form-control" type="file" />
             </div>
             <div class="form-group">
                 <input type="submit" value="@(Model.itemID==0 ? "Create":"Edit")" class="btn btn-default" />

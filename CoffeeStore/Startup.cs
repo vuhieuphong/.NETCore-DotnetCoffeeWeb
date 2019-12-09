@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace CoffeeStore
 {
@@ -48,14 +50,16 @@ namespace CoffeeStore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<ICustomer, CustomerRepository>();
             services.AddTransient<IOrder, OrderRepository>();
             services.AddTransient<IOrderDetail, OrderDetailRepository>();
             services.AddTransient<IItem, ItemRepository>();
             services.AddTransient<IItemCategory, ItemCategoryRepository>();
-            services.AddTransient<IPayment, PaymentRepository>();
-
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +79,7 @@ namespace CoffeeStore
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseSession();
             IdentitySeedData.EnsurePopulated(app);
 
             app.UseMvc(routes =>

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>@(Model.orderID == 0 ? "Create" : "Edit")</h2>
 
 <h4>Order</h4>
 <hr />
@@ -17,10 +17,19 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="customerID" class="control-label"></label>
-                <select asp-for="customerID" class="form-control"
-                        asp-items="@(new SelectList(ViewBag.Customers, "customerID", "customerName"))"></select>
-                <span asp-validation-for="customerID" class="text-danger"></span>
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="phone" class="control-label"></label>
+                <input asp-for="phone" class="form-control" />
+                <span asp-validation-for="phone" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="orderTime" class="control-label"></label>

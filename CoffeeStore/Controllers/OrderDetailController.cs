@@ -24,9 +24,8 @@ namespace CoffeeStore.Controllers
         }
         public IActionResult Index(string sortOrder,string searchString)
         {
-            ViewData["NameSortParm"] = sortOrder != "name_sort" ? "name_sort" : "";
+            ViewData["OrderNameSortParm"] = sortOrder != "ordername_sort" ? "ordername_sort" : "";
             ViewData["DateSortParm"] = sortOrder != "date_sort" ? "date_sort" : "";
-            ViewData["PriceSortParm"] = sortOrder != "price_sort" ? "price_sort" : "";
             ViewData["QuantitySortParm"] = sortOrder != "quantity_sort" ? "quantity_sort" : "";
             ViewData["currentFilter"] = searchString;
             var orderDetails = _OrderDetail.GetOrderDetails;
@@ -41,11 +40,8 @@ namespace CoffeeStore.Controllers
                 case "name_sort":
                     orderDetails = orderDetails.OrderBy(s => s.Items.itemName);
                     break;
-                case "date_sort":
-                    orderDetails = orderDetails.OrderBy(s => s.Orders.orderTime);
-                    break;
-                case "price_sort":
-                    orderDetails = orderDetails.OrderBy(s => s.price);
+                case "ordername_sort":
+                    orderDetails = orderDetails.OrderBy(s => s.Orders.name);
                     break;
                 case "quantity_sort":
                     orderDetails = orderDetails.OrderBy(s => s.quantity);

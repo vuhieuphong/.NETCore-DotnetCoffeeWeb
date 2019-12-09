@@ -17,10 +17,22 @@
             @Html.DisplayFor(model => model.orderTime)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Customers.customerName)
+            @Html.DisplayNameFor(model => model.name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Customers.customerName)
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.phone)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.OrderDetails)
@@ -36,10 +48,7 @@
                             Item Name
                         </th>
                         <th>
-                            Price
-                        </th>
-                        <th>
-                           Quantity
+                            Quantity
                         </th>
                         <th></th>
                     </tr>
@@ -53,9 +62,6 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Items.itemName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.price)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.quantity)

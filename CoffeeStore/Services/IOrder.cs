@@ -12,5 +12,6 @@ namespace CoffeeStore.Services
         Order GetOrder(int? Id);
         void Add(Order _Order);
         void Remove(int? Id);
+        void SaveOrder(Order order);
     }
 }

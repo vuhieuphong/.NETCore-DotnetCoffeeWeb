@@ -23,7 +23,7 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]"
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrderNameSortParm"]"
                 asp-route-searchString="@ViewData["CurrentFilter"]">
                 @Html.DisplayNameFor(model => model.orderID)</a>
             </th>
@@ -31,12 +31,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"
                 asp-route-searchString="@ViewData["CurrentFilter"]">
                 @Html.DisplayNameFor(model => model.itemID)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParm"]"
-                asp-route-searchString="@ViewData["CurrentFilter"]">
-                @Html.DisplayNameFor(model => model.price)</a>
-            </th>
+            </th>            
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["QuantitySortParm"]"
                 asp-route-searchString="@ViewData["CurrentFilter"]">
@@ -50,14 +45,11 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Orders.orderTime)
+                    @Html.DisplayFor(modelItem => item.Orders.name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Items.itemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.price)
-                </td>
+                </td>               
                 <td>
                     @Html.DisplayFor(modelItem => item.quantity)
                 </td>

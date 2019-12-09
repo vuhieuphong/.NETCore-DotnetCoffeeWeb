@@ -24,8 +24,10 @@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]"
                 asp-route-searchString="@ViewData["CurrentFilter"]">
-                @Html.DisplayNameFor(model => model.customerID)</a>
+                @Html.DisplayNameFor(model => model.name)</a>
             </th>
+            <th>@Html.DisplayNameFor(model => model.email)</th>
+            <th>@Html.DisplayNameFor(model => model.phone)</th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.orderTime)</a>
             </th>
@@ -35,19 +37,25 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customers.customerName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.orderTime)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.orderID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.orderID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.orderID">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.orderID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.orderID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.orderID">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

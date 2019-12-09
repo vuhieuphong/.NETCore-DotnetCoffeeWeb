@@ -29,17 +29,7 @@
         <table class="table table-hover">
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        <div>
-                            <img style="width:15rem;height: 10rem" class="img-responsive img-thumbnail rounded float-left"
-                                 src="data:image/jpeg;base64,@(item.itemImage == null ? "" : Convert.ToBase64String(item.itemImage)) " />
-                        </div>
-                    </td>
-                    <td style="font-size:20px ;font-family: Montserrat, sans-serif;vertical-align:middle;text-align:center">
-                        @Html.DisplayFor(modelItem => item.itemName)
-                    </td>
-                </tr>
+                @Html.Partial("ProductSummary", item)
             }
         </table>
     </div>

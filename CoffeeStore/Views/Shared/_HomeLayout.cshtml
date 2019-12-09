@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - CoffeeStore</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -31,12 +32,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Menu</a></li>
+                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>       
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@await Component.InvokeAsync("CartSummary")</li>
                 </ul>
             </div>
         </div>
     </nav>
+
     <div class="jumbotron text-center" style="
         height:280px;
         background:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(https://visitsouthampton.ca/images2/DB/98851291600X6407596588-IMG_4899.jpg);

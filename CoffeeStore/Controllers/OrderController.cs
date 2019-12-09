@@ -13,11 +13,11 @@ namespace CoffeeStore.Controllers
     public class OrderController : Controller
     {
         private readonly IOrder _Order;
-        private readonly ICustomer _Customer;
-        public OrderController(IOrder _IOrder,ICustomer _ICustomer)
+        private Cart cart;
+        public OrderController(IOrder _IOrder,Cart cartService)
         {
-            _Order = _IOrder;
-            _Customer = _ICustomer;
+            _Order = _IOrder;      
+            cart = cartService;
         }
         public IActionResult Index(string sortOrder,string searchString)
         {
@@ -28,13 +28,13 @@ namespace CoffeeStore.Controllers
             var orders = _Order.GetOrders;
             if (!string.IsNullOrEmpty(searchString))
             {
-                orders = orders.Where(s => s.Customers.customerName.ToUpper().Contains(searchString.ToUpper()));
+                orders = orders.Where(s => s.name.ToUpper().Contains(searchString.ToUpper()));
             }
 
             switch (sortOrder)
             {
                 case "name_sort":
-                    orders = orders.OrderBy(s => s.Customers.customerName);
+                    orders = orders.OrderBy(s => s.name);
                     break;
                 case "date_sort":
                     orders = orders.OrderBy(s => s.orderTime);
@@ -52,7 +52,6 @@ namespace CoffeeStore.Controllers
         {
             Order model = new Order();
             model.orderID=0;
-            ViewBag.Customers = _Customer.GetCustomers;
             return View(model);
         }
 
@@ -64,7 +63,6 @@ namespace CoffeeStore.Controllers
                 _Order.Add(model);
                 return RedirectToAction("Index");
             }
-            ViewBag.Customers = _Customer.GetCustomers;
             return View(model);
         }
         public IActionResult Delete(int? Id)
@@ -89,7 +87,6 @@ namespace CoffeeStore.Controllers
         public IActionResult Edit(int? Id)
         {
             var model = _Order.GetOrder(Id);
-            ViewBag.Customers = _Customer.GetCustomers;
             return View("Create", model);
         }
 
@@ -97,6 +94,36 @@ namespace CoffeeStore.Controllers
         {
             var model = _Order.GetOrder(Id);
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public ViewResult Checkout()
+        {
+            return View(new Order());
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult Checkout(Order order)
+        {
+            if (cart.ReturnOrderDetails.Count() == 0) {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+            if (ModelState.IsValid) {
+                order.OrderDetails = cart.ReturnOrderDetails.ToArray();
+                _Order.SaveOrder(order);
+                return RedirectToAction(nameof(Completed));
+            }
+            else
+            {
+                return View(order);
+            }
+        }
+
+        [AllowAnonymous]
+        public ViewResult Completed() {
+            cart.Clear();
+            return View();
         }
     }
 }
