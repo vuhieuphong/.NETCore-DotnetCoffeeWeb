@@ -8,12 +8,16 @@
     </td>
     <td style="font-size:20px ;font-family: Montserrat, sans-serif;vertical-align:middle;text-align:center">
         @Html.DisplayFor(modelItem => Model.itemName)
+        ($
+        @Html.DisplayFor(modelItem => Model.price)
+        )
     </td>
     <td style="vertical-align:middle;text-align:center">
         <form id="@Model.itemID" asp-action="AddToCart" asp-controller="Cart" method="post" style="display:inline-block;">         
         <input type="hidden" asp-for="itemID" />        
         <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />        
         <div class="col-xs-5 pull-right">
+            <label style="font-family: Montserrat, sans-serif">Quantity:</label>
             <input type="number" name="quantity" min="1" value="1" class="form-control"/>
             <button type="submit" class="btn btn-success btn-sm pull-right" style="float:right;font-family: Montserrat, sans-serif;margin-top:8px">
                 Add To Cart

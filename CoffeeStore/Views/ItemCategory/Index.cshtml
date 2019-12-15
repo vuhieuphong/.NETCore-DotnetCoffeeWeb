@@ -11,10 +11,9 @@
 </p>
 <form asp-controller="ItemCategory" asp-action="Index" method="get">
     <div class="form-inline pull-right">
-        <label>Search:</label>
-        <br />Item Category Name:
+        Item Category Name:
         <input type="text" name="searchString" value="@ViewData["currentFilter"]" class="form-control mr-1">
-        <button type="submit" class="btn btn-primary">Filter</button>
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
     </div>
 </form>
 <br /><br /><br /><br /><br />
